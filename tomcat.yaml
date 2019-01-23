@@ -1,0 +1,12 @@
+# Install Tomcat
+
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+     - name: Download tomcat package and don't download the file if the file already exists, change the permissions of the file
+       get_url:
+         url: http://apache.mirror.serversaustralia.com.au/tomcat/tomcat-8/v8.5.37/bin/apache-tomcat-8.5.37.tar.gz
+         dest: /opt/
+         mode: 0744
+         force: no
