@@ -10,3 +10,27 @@
          dest: /opt/
          mode: 0744
          force: no
+     
+     # Shell module to untar and copy to destination foler using -C option
+     - name: Extract the zip file
+       shell: tar -xzf /opt/apache-tomcat-8.5.37.tar.gz -C /opt/
+   # OR 
+    
+   # Untar using  UNARCHIVE module and remote_src to untar remote machine else default to untar local machine.
+     - name: Extract the zip file
+       unarchive:
+         src: /opt/apache-tomcat-8.5.37.tar.gz
+         dest: /opt/
+         remote_src: yes
+         keep_newer: no
+         
+    # excute a shell script in the remote node
+    
+     - name: start tomcat
+       command: sh /opt/apache-tomcat-8.5.37/bin/startup.sh
+       
+    - name: deploy war file in tomcat server
+       copy:
+         src: /home/ansadmin/slider-0.0.war
+         dest: /opt/apache-tomcat-8.5.37/webapps/
+
