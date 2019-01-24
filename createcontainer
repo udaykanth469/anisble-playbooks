@@ -1,0 +1,20 @@
+
+# task1 delete the image
+# task2 pull the image local if not exists it will pull the latest image from docker hub and create container, if container
+# already exists with that same name, it removes and recreate it.
+
+---
+- hosts: docker
+  become: true
+  tasks:
+    - name: Delete image
+      docker_image:
+        name: udayr/dockerdemo
+        state: absent
+        force: yes
+    - name: Create container
+      docker_container:
+        name: tomcat
+        image: udayr/dockerdemo
+        ports: "8090:8080"
+        detach: yes
